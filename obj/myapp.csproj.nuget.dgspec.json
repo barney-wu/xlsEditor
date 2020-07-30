@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wucha\\Source\\repos\\barney-wu\\xlsEditor\\myapp.csproj": {}
+    "C:\\Users\\wucha\\Source\\Repos\\barney-wu\\xlsEditor\\myapp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wucha\\Source\\repos\\barney-wu\\xlsEditor\\myapp.csproj": {
+    "C:\\Users\\wucha\\Source\\Repos\\barney-wu\\xlsEditor\\myapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wucha\\Source\\repos\\barney-wu\\xlsEditor\\myapp.csproj",
+        "projectUniqueName": "C:\\Users\\wucha\\Source\\Repos\\barney-wu\\xlsEditor\\myapp.csproj",
         "projectName": "myapp",
-        "projectPath": "C:\\Users\\wucha\\Source\\repos\\barney-wu\\xlsEditor\\myapp.csproj",
+        "projectPath": "C:\\Users\\wucha\\Source\\Repos\\barney-wu\\xlsEditor\\myapp.csproj",
         "packagesPath": "C:\\Users\\wucha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wucha\\Source\\repos\\barney-wu\\xlsEditor\\obj\\",
+        "outputPath": "C:\\Users\\wucha\\Source\\Repos\\barney-wu\\xlsEditor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\wucha\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
+            "BlazorInputFile": {
+              "target": "Package",
+              "version": "[0.1.0-preview, )"
+            },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
               "version": "[3.2.1, )"
@@ -51,6 +55,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.2.1, )"
+            },
+            "Syncfusion.XlsIO.Net.Core": {
+              "target": "Package",
+              "version": "[18.2.0.46, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",

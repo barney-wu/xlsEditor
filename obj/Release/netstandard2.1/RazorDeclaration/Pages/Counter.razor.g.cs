@@ -76,6 +76,13 @@ using myapp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\Users\wucha\Source\Repos\barney-wu\xlsEditor\_Imports.razor"
+using BlazorInputFile;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
     public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {

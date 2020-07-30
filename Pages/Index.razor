@@ -1,7 +1,99 @@
 ﻿@page "/"
+@using System.IO;
+@using myapp;
+@using System.Windows;
+@inject myapp.Data.QueryService queryService
+@inject myapp.Data.MergeService mergeService
+@inject Microsoft.JSInterop.IJSRuntime JS
 
-<h1>Hello, world!</h1>
+@if (null == xlsStatus)
+{
+    <h3>Upload Original xls report to get Query for Jitter cloud </h3>
+    <InputFile OnChange="HandleXlsSelection" />
+}
+else
+{
+    <p>@xlsStatus</p>
+    <h5>Your Query is generated.</h5>
+    <CopyToClipboard Text=@QueryStr />
 
-Welcome to your new app.
+    @if (null == csvStatus)
+    {
+        <p>Upload Csv file from Jitter cloud</p>
+        <InputFile OnChange="HandleCsvSelection" />
+    }
+    else
+    {
+        <p>@csvStatus</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        @if (null == outputStream)
+        {
+            <button class="btn btn-primary" @onclick="@mergeDocument">Merge Document</button>
+        }
+        else
+        {
+            <p>New document is generated</p>
+            <button class="btn btn-primary" @onclick="@downloadDocument">Download Document</button>
+        }
+    }
+}
+
+
+
+
+@code {
+    string QueryStr;
+    string csvStatus, xlsStatus;
+    MemoryStream csvStream, xlsStream, outputStream;
+
+
+    async Task HandleXlsSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            // Just load into .NET memory to show it can be done
+            // Alternatively it could be saved to disk, or parsed in memory, or similar
+            xlsStream = new MemoryStream();
+            await file.Data.CopyToAsync(xlsStream);
+    
+
+            //outputStream = service.CreateExcel(ms, file.Name);
+            QueryStr = queryService.CreateQuery(xlsStream, file.Name);
+
+            xlsStatus = $"Finished loading Xlsx : {file.Name}";
+        }
+    }
+
+    async Task HandleCsvSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            // Just load into .NET memory to show it can be done
+            // Alternatively it could be saved to disk, or parsed in memory, or similar
+            csvStream = new MemoryStream();
+            await file.Data.CopyToAsync(csvStream);
+
+            //outputStream = service.CreateExcel(ms, file.Name);
+            //csvStream = service.MergeExcel(ms, file.Name);
+
+            csvStatus = $"Finished loading Csv : {file.Name}";
+        }
+    }
+
+
+    protected void mergeDocument()
+    {
+        //outputStream = service.CreateExcel(inputStream, fName);
+        outputStream = mergeService.MergeExcel(csvStream, xlsStream);
+
+    }
+
+    protected async void downloadDocument()
+    {
+        await JS.SaveAs("Output.xlsx", outputStream.ToArray());
+    }
+
+
+}
